@@ -4,10 +4,25 @@ const boxs = main.querySelectorAll('article');
 
 // 버튼 클릭 이벤트문
 btns.forEach((btn, idx) => {
-	btn.addEventListener('click', () => {
-		// 만약 클릭한 버튼이 내가 클릭한 버튼(class on이 붙은 활성화된 버튼) 이라면, return을 실행해서 함수 실행 중지 (성능개선)(불필요한 activation 함수 호출 방지)
-		// 만약 on이 없다면 (클릭하지 않았던 버튼) 해당 if 조건문 무시하고 정상적으로 activation 함수 호출
-		if (btns[idx].classList.contains('on')) return;
+	btn.addEventListener('click', (e) => {
+		// 여기서 (e)는 자동으로 제공되는 이벤트라는 객체
+		// console.log('currentTarget', e.currenTarget);
+		// console.log('target', e.target);
+		// e.currentTarget (e 객체 안에 currentTarget이라는 것이 있고)
+		// : js 이벤트 구문에 연결되어 있는 선택자가 선택됨
+		// e.target (e 객체 안에 target이라는 것이 있음)
+		// : 실제 화면상에서 이벤트가 발생한 대상 선택
+
+		/* 만약 연결된 선택자가 <a> 하이퍼링크(링크이동)처럼 특정 기능이 있는 요소면, 
+				해당 기능을 막아야 할 필요가 있음. 
+				e.preventDefault();
+		*/
+		e.preventDefault();
+
+		// if (btns[idx].classList.contains('on')) return;
+		// btns[idx] 대신 e.currentTarget 써서 내가 선택한 그 해당 선택자만 호출.
+		if (e.currentTarget.classList.contains('on')) return;
+
 		//activation(btns, idx);
 		//activation(boxs, idx);
 		[btns, boxs].forEach((el) => activation(el, idx));
