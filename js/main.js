@@ -16,23 +16,27 @@ const info = [
 	{ url: 'https://www.google.com', target: '_blank', name: '구글' },
 ];
 
-const links = document.querySelectorAll('a');
+/* 
+  동적으로 DOM 생성하기
 
-info.forEach((data, idx) => {
-	console.log(data.url);
-	console.log(data.target);
-	console.log(data.name);
+  방법 (1) : innerHTML을 이용해서 문자열로 직접 동적 태그 생성 (선택자의 기존 자식 내용을 없애면서 덮어쓰기)
 
-	// const url = data.url;
-	// const target = data.target;
-	// const name = data.name;
+  방법 (2)
 
-	const { url, target, name } = data;
+*/
 
-	links[idx].setAttribute('href', url);
-	links[idx].setAttribute('target', target);
-	links[idx].innerText = name;
-	console.log('-----');
-});
+// 특정 부모 요소 안에 반복적인 DOM 요소를 동적으로 생성하기 위해서는
 
-info.forEach;
+const nav = document.querySelector('nav');
+// 1. 문자열을 초기화 하는 변수를 만들고
+let tags = '';
+// 2. += 를 활용해서, 반복 추가할 태그를 문자열 형태로 계속해서 쌓아놓음.
+tags += `<a href='${info[0].url}' target='${info[0].target}'>${info[0].name}</a>`;
+
+tags += `<a href='${info[1].url}' target='${info[1].target}'>${info[1].name}</a>`;
+
+tags += `<a href='${info[2].url}' target='${info[2].target}'>${info[2].name}</a>`;
+
+console.log(tags);
+// 3. 해당 DOM 요소에 변수에 있는(tags) 반복태그 문자열들을 한 번에 꽂아넣음.
+nav.innerHTML = tags;
